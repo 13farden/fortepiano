@@ -23,24 +23,23 @@ while 1:
                 if rect.collidepoint(pos):
                     sounds[keys_list[i]].play()
                     pressed_keys.add(i)
-            if e.type == MOUSEBUTTONUP:
-                pos = e.pos
-                for i, rect in enumerate(keys_rects):
-                    if i in pressed_keys and rect.collidepoint(pos):
-                        pressed_keys.remove(i)
-            if e.type == KEYDOWN:
-                k = key.name(e.key)
-                if k in sounds:
-                    sounds[k].play()
-                    idx = keys_list.index(k)
-                    if idx in pressed_keys:
-                        pressed_keys.remove(idx)
-            if e.type == KEYUP:
-                k = key.name(e.kay)
-                if k in sounds:
-                    idx = keys_list.index(k)
-                    if idx in pressed_keys:
-                        pressed_keys.remove(idx)
+        if e.type == MOUSEBUTTONUP:
+            pos = e.pos
+            for i, rect in enumerate(keys_rects):
+                if i in pressed_keys and rect.collidepoint(pos):
+                    pressed_keys.remove(i)
+        if e.type == KEYDOWN:
+            k = key.name(e.key)
+            if k in sounds:
+                sounds[k].play()
+                idx = keys_list.index(k)
+                pressed_keys.add(idx)
+        if e.type == KEYUP:
+            k = key.name(e.key)
+            if k in sounds:
+                idx = keys_list.index(k)
+                if idx in pressed_keys:
+                    pressed_keys.remove(idx)
                     
     screen.fill(WHITE)
     draw_keys(screen, keys_rects, pressed_keys,)
